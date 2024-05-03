@@ -1,0 +1,125 @@
+@use 'sass:math';
+
+// 15n keyframes
+@for $i from 0 to 15 {
+  $progress: $i * math.div(100%, 15);
+  $opacity: $i * math.div(1, 7.5);
+
+  @if $progress > 50% {
+    $opacity: 2 - $opacity;
+  }
+
+  @keyframes blink15#{$i + 1} {
+    @if $i > 0 {
+      0% {
+        opacity: $opacity;
+      }
+    }
+    @if $progress > 50% {
+      #{$progress - 50%} {
+        opacity: 1;
+      }
+    }
+    #{$progress} {
+      opacity: 0;
+    }
+    @if $progress < 50% {
+      #{$progress + 50%} {
+        opacity: 1;
+      }
+    }
+    100% {
+      opacity: $opacity;
+    }
+  }
+}
+
+// 17n keyframes
+@for $i from 0 to 17 {
+  $progress: $i * math.div(100%, 17);
+  $opacity: $i * math.div(1, 8.5);
+
+  @if $progress > 50% {
+    $opacity: 2 - $opacity;
+  }
+
+  @keyframes blink17#{$i + 1} {
+    @if $i > 0 {
+      0% {
+        opacity: $opacity;
+      }
+    }
+    @if $progress > 50% {
+      #{$progress - 50%} {
+        opacity: 1;
+      }
+    }
+    #{$progress} {
+      opacity: 0;
+    }
+    @if $progress < 50% {
+      #{$progress + 50%} {
+        opacity: 1;
+      }
+    }
+    100% {
+      opacity: $opacity;
+    }
+  }
+}
+
+.rgb {
+  .background {
+    width: max(100vw, 100vh);
+    height: max(100vw, 100vh);
+    background: #f00;
+  }
+  .a {
+    position: relative;
+    width: 6.25%;
+    height: 6.25%;
+    &:before, &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    &:before {
+      background: #0f0;
+    }
+    &:after {
+      background: #00f;
+      mix-blend-mode: hue;
+    }
+  }
+}
+
+@for $i from 1 through 15 {
+  .rgb .a:nth-child(15n+#{$i}):before {
+    animation: 8s linear 0s infinite blink15#{$i};
+  }
+}
+
+@for $i from 1 through 17 {
+  .rgb .a:nth-child(17n+#{$i}):after {
+    animation: 8s linear 0s infinite blink17#{$i};
+  }
+}
+
+.rgb {
+  h1 {
+    font-family: "Press Start 2P", monospace;
+    font-size: 6rem;
+  }
+  p, .button {
+    font-family: "Silkscreen", monospace;
+  }
+  .button {
+    border-radius: 0;
+  }
+}
