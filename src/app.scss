@@ -24,25 +24,42 @@ body {
   min-height: 100vh;
 }
 
+$light-color: #ccc;
+$grey-50: #808080;
+$shadow-color: #444;
+
+$nav-line-height: 1rem;
+$nav-vertical-padding: 0.375rem;
+$nav-height: $nav-line-height + $nav-vertical-padding * 2;
+
+.nav-blur {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: $nav-height;
+  z-index: 1;
+  background: rgba(#fff, 0);
+  backdrop-filter: blur(16px);
+}
 nav {
-  position: relative;
+  position: fixed;
   top: 0;
   right: 0;
   left: 0;
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
-  z-index: 1;
+  z-index: 2;
   mix-blend-mode: difference;
-  background: #808080;
-  box-shadow: 0 0.125rem #fff;
+  background: $grey-50;
   a {
     position: relative;
     display: block;
-    padding: 0.375rem 0.625rem;
+    padding: $nav-vertical-padding 0.625rem;
     font-size: 1rem;
     font-weight: 700;
-    line-height: 1rem;
+    line-height: $nav-line-height;
     color: #fff;
     text-decoration: none;
     &:hover {
@@ -76,8 +93,8 @@ nav {
 
 main {
   position: relative;
-  padding: 2rem 0;
-  color: #808080;
+  padding: ($nav-height + 2rem) 0 2rem 0;
+  color: $light-color;
   mix-blend-mode: difference;
 }
 
@@ -95,7 +112,7 @@ h1 {
   font-size: 7rem;
   font-weight: 700;
   line-height: 7rem;
-  text-shadow: 0.25rem 0.125rem 0 #fff;
+  text-shadow: 0.25rem 0.125rem 0 $shadow-color;
 }
 
 p {
@@ -103,6 +120,7 @@ p {
   font-size: 1.125rem;
   font-weight: 700;
   line-height: 1.5rem;
+  text-shadow: 0.0625rem 0.0625rem 0 $shadow-color;
 }
 
 .button {
@@ -118,14 +136,15 @@ p {
   color: currentColor;
   text-decoration: none;
   background: none;
+  box-shadow: 0.0625rem 0.0625rem $shadow-color;
   cursor: pointer;
   vertical-align: top;
   &:hover {
     color: #fff;
   }
   &:active {
-    border-color: #808080;
-    background: #808080;
+    border-color: #fff;
+    background: $light-color;
     color: #000;
     padding-top: 2px;
     padding-bottom: 0;

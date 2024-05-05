@@ -4,9 +4,9 @@ import './rgb.scss';
 
 export default function RGB() {
   return (
-    <div class='rgb'>
+    <>
       <Title>RGB</Title>
-      <Link href='https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Silkscreen&display=swap' rel='stylesheet'/>
+      <Link href='https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Jersey+10&display=swap' rel='stylesheet'/>
       <div class='background'>
         <For each={Array(256)}>{() => <div class='a'/>}</For>
       </div>
@@ -19,6 +19,6 @@ export default function RGB() {
           target='_blank'
         >View Source</a>
       </main>
-    </div>
+    </>
   );
 };

@@ -5,7 +5,7 @@ import './xyz.scss';
 
 export default function XYZ() {
   return (
-    <div class='xyz'>
+    <>
       <Title>XYZ</Title>
       <Link href='https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Outfit:wght@700&display=swap' rel='stylesheet'/>
       <div class='background'>
@@ -22,6 +22,6 @@ export default function XYZ() {
           target='_blank'
         ><GitHubSVG/>View Source</a>
       </main>
-    </div>
+    </>
   );
 };
