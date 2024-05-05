@@ -4,6 +4,7 @@ import solidSVG from "vite-plugin-solid-svg";
 import eslintPlugin from "@nabla/vite-plugin-eslint";
 
 export default defineConfig({
+  base: '/',
   plugins: [
     solid(),
     solidSVG({
