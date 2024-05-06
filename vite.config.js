@@ -3,8 +3,8 @@ import solid from 'vite-plugin-solid';
 import solidSVG from 'vite-plugin-solid-svg';
 import eslintPlugin from '@nabla/vite-plugin-eslint';
 
-export default defineConfig(({ command }) => ({
-  base: command === 'serve' ? '/' : '/solid/',
+export default defineConfig({
+  base: '/solid/',
   plugins: [
     solid(),
     solidSVG({
@@ -23,4 +23,4 @@ export default defineConfig(({ command }) => ({
     port: 3000,
     strictPort: true,
   },
-}));
+});

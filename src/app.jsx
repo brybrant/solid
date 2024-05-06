@@ -14,9 +14,9 @@ const Wrapper = props => (
   <>
     <div class='nav-blur'/>
     <nav>
-      <A href='/cmyk'>CMYK</A>
-      <A href='/rgb'>RGB</A>
-      <A href='/xyz'>XYZ</A>
+      <A href='/solid/cmyk'>CMYK</A>
+      <A href='/solid/rgb'>RGB</A>
+      <A href='/solid/xyz'>XYZ</A>
     </nav>
     {props.children}
   </>
@@ -24,17 +24,17 @@ const Wrapper = props => (
 
 function loadPage({intent, location}) {
   if (intent === 'initial' || intent === 'navigate') {
-    app.className = location.pathname.slice(1);
+    app.className = location.pathname.split('/').pop();
   };
 };
 
 render(() =>
   <MetaProvider>
     <Router root={Wrapper}>
-      <Route path='/' component={CMYK} load={loadPage}/>
-      <Route path='/cmyk' component={CMYK} load={loadPage}/>
-      <Route path='/rgb' component={RGB} load={loadPage}/>
-      <Route path='/xyz' component={XYZ} load={loadPage}/>
+      <Route path='/solid/' component={CMYK} load={loadPage}/>
+      <Route path='/solid/cmyk' component={CMYK} load={loadPage}/>
+      <Route path='/solid/rgb' component={RGB} load={loadPage}/>
+      <Route path='/solid/xyz' component={XYZ} load={loadPage}/>
     </Router>
   </MetaProvider>,
   app
