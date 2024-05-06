@@ -10,6 +10,10 @@
     "build": "vite build",
     "preview": "vite preview"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/brybrant/solid.git"
+  },
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=9.0.0"
@@ -21,6 +25,7 @@
   },
   "devDependencies": {
     "@nabla/vite-plugin-eslint": "^2.0.4",
+    "autoprefixer": "^10.4.19",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
@@ -30,5 +35,8 @@
     "vite": "^5.2.9",
     "vite-plugin-solid": "^2.10.2",
     "vite-plugin-solid-svg": "^0.8.1"
-  }
+  },
+  "browserslist": [
+    "> 1%, not dead, not ie 11, not op_mini all"
+  ]
 }
