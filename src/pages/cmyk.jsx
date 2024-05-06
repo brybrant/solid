@@ -5,7 +5,7 @@ import './cmyk.scss';
 
 export default function CMYK() {
   return (
-    <>
+    <div class='cmyk'>
       <Title>CMYK</Title>
       <Link href='https://fonts.googleapis.com/css2?family=Kalam:wght@700&family=Protest+Riot&display=swap' rel='stylesheet'/>
       <div class='background'>
@@ -28,6 +28,6 @@ export default function CMYK() {
           target='_blank'
         ><GitHubSVG/>View Source</a>
       </main>
-    </>
+    </div>
   );
 };

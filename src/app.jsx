@@ -22,19 +22,12 @@ const Wrapper = props => (
   </>
 );
 
-function loadPage({intent, location}) {
-  if (intent === 'initial' || intent === 'navigate') {
-    app.className = location.pathname.split('/').pop();
-  };
-};
-
 render(() =>
   <MetaProvider>
     <Router root={Wrapper}>
-      <Route path='/solid/' component={CMYK} load={loadPage}/>
-      <Route path='/solid/cmyk' component={CMYK} load={loadPage}/>
-      <Route path='/solid/rgb' component={RGB} load={loadPage}/>
-      <Route path='/solid/xyz' component={XYZ} load={loadPage}/>
+      <Route path={['/solid/', '/solid/cmyk']} component={CMYK}/>
+      <Route path='/solid/rgb' component={RGB}/>
+      <Route path='/solid/xyz' component={XYZ}/>
     </Router>
   </MetaProvider>,
   app
