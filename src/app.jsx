@@ -1,6 +1,6 @@
 import { lazy } from 'solid-js';
 import { render } from 'solid-js/web';
-import { A, Router, Route } from '@solidjs/router';
+import { A, HashRouter, Route } from '@solidjs/router';
 import { MetaProvider } from '@solidjs/meta';
 
 import './app.scss';
@@ -14,9 +14,9 @@ const Wrapper = props => (
   <>
     <div class='nav-blur'/>
     <nav>
-      <A href='/solid/cmyk'>CMYK</A>
-      <A href='/solid/rgb'>RGB</A>
-      <A href='/solid/xyz'>XYZ</A>
+      <A href='/cmyk'>CMYK</A>
+      <A href='/rgb'>RGB</A>
+      <A href='/xyz'>XYZ</A>
     </nav>
     {props.children}
   </>
@@ -24,11 +24,11 @@ const Wrapper = props => (
 
 render(() =>
   <MetaProvider>
-    <Router root={Wrapper}>
-      <Route path={['/solid/', '/solid/cmyk']} component={CMYK}/>
-      <Route path='/solid/rgb' component={RGB}/>
-      <Route path='/solid/xyz' component={XYZ}/>
-    </Router>
+    <HashRouter root={Wrapper}>
+      <Route path={['/', '/cmyk']} component={CMYK}/>
+      <Route path='/rgb' component={RGB}/>
+      <Route path='/xyz' component={XYZ}/>
+    </HashRouter>
   </MetaProvider>,
   app
 );
