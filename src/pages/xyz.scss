@@ -75,6 +75,7 @@ $sqrt2: math.sqrt(2);
     position: relative;
     width: 12.5%;
     height: 10%;
+    will-change: transform;
 
     &:before, &:after {
       content: '';
@@ -89,8 +90,8 @@ $sqrt2: math.sqrt(2);
       height: 200%;
       background: radial-gradient(
         closest-corner,
-        oklch(20% 20% 260),
-        oklch(60% 50% 260)
+        oklch(20% 25% 260),
+        oklch(40% 20% 260)
       ) 100% 0% / 200% 200%;
       transform: skewY(45deg) translateY(-12.5%);
     }
@@ -101,8 +102,8 @@ $sqrt2: math.sqrt(2);
       height: 200%;
       background: radial-gradient(
         closest-corner,
-        oklch(20% 20% 30),
-        oklch(60% 50% 30)
+        oklch(40% 20% 260),
+        oklch(60% 15% 260)
       ) 0% 0% / 200% 200%;
       transform: skewY(-45deg) translateY(-12.5%);
     }
@@ -132,13 +133,14 @@ $sqrt2: math.sqrt(2);
     height: 50%;
     background: radial-gradient(
       closest-corner,
-      oklch(40% 20% 140),
-      oklch(60% 50% 140)
+      oklch(60% 15% 260),
+      oklch(80% 10% 260)
     ) 100% 100% / 200% 200%;
     transform: rotate(45deg) scale($sqrt2) translate(50%);
   }
 }
 
+// even row animation
 @for $i from 1 through 6 {
   $position: 50% + math.div(100%, 6) * ($i - 1);
 
@@ -152,6 +154,7 @@ $sqrt2: math.sqrt(2);
   }
 }
 
+// odd row animation
 @for $i from 1 through 7 {
   $position: 100% - math.div(100%, 6) * ($i - 1);
 
