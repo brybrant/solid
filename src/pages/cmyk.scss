@@ -1,128 +1,113 @@
 @use 'sass:math';
 
-$maxScale: 1.58;
+$max-scale: 1.58;
 
 @for $i from 0 to 10 {
   $progress: $i * math.div(100%, 10);
-  $scaleEven: $i * math.div($maxScale, 5);
-  $scaleOdd: $maxScale - $scaleEven;
 
-  @if $progress > 50% {
-    $scaleEven: ($maxScale * 2) - $scaleEven;
-    $scaleOdd: math.abs($scaleOdd);
-  }
-
-  @keyframes expandEven#{$i + 1} {
-    @if $i > 0 {
-      0% {
-        transform: scale($scaleEven);
-      }
-    }
+  @keyframes expand#{$i + 1} {
     @if $progress > 50% {
       #{$progress - 50%} {
-        transform: scale($maxScale);
+        transform: scale($max-scale);
       }
     }
-    #{$progress} {
-      transform: scale(0);
-    }
-    @if $progress < 50% {
-      #{$progress + 50%} {
-        transform: scale($maxScale);
-      }
-    }
-    100% {
-      transform: scale($scaleEven);
-    }
-  }
 
-  @keyframes expandOdd#{$i + 1} {
-    @if $i > 0 {
-      0% {
-        transform: scale($scaleOdd);
-      }
-    }
-    @if $progress > 50% {
-      #{$progress - 50%} {
+    @if $progress > 0% {
+      #{$progress} {
         transform: scale(0);
       }
     }
-    #{$progress} {
-      transform: scale($maxScale);
-    }
+
     @if $progress < 50% {
       #{$progress + 50%} {
-        transform: scale(0);
+        transform: scale($max-scale);
       }
-    }
-    100% {
-      transform: scale($scaleOdd);
     }
   }
 }
 
-$backgroundScale: math.cos(15deg) + math.sin(15deg);
+$background-scale: math.cos(15deg) + math.sin(15deg);
 
 .cmyk {
   .background {
-    width: max(100vw * $backgroundScale, 100vh * $backgroundScale);
-    height: max(100vw * $backgroundScale, 100vh * $backgroundScale);
-    filter: blur(16px);
+    width: max(100vw * $background-scale, 100vh * $background-scale);
+    height: max(100vw * $background-scale, 100vh * $background-scale);
+    background: #fff;
+    filter: blur(8px);
   }
+
+  h1 {
+    font-family: Kalam, cursive;
+  }
+
+  p {
+    font-size: 1.25rem;
+  }
+
+  p, .button {
+    font-family: 'Protest Riot', cursive;
+  }
+
   .a, .b, .c {
     position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    inset: 0;
     display: flex;
     flex-flow: row wrap;
     mix-blend-mode: multiply;
+
     & > div {
       width: 10%;
       height: 10%;
       border-radius: 100%;
+      will-change: transform;
     }
   }
+
   .a > div {
     background: #ff0;
   }
+
   .b {
     transform: rotate(75deg);
+
     & > div {
       background: #f0f;
     }
   }
+
   .c {
     transform: rotate(195deg);
+
     & > div {
       background: #0ff;
     }
   }
 }
 
+
 @for $i from 1 through 10 {
+  $scale-even: math.div($max-scale, 5) * ($i - 1);
+  $scale-odd: $max-scale - $scale-even;
+
+  @if $scale-even > $max-scale {
+    $scale-even: $max-scale * 2 - $scale-even;
+    $scale-odd: math.abs($scale-odd);
+  }
+
   .cmyk {
     .a > div:nth-child(10n+#{$i}) {
-      animation: 12s linear 0s infinite expandOdd#{$i};
+      transform: scale($scale-odd);
+      animation: 12s linear 0s infinite expand#{($i + 4) % 10 + 1};
     }
-    .b > div:nth-child(10n+#{$i}) {
-      animation: 12s linear 0s infinite expandEven#{$i};
-    }
-    .c > div:nth-child(10n+#{$i}) {
-      animation: 8s linear 0s infinite expandEven#{$i};
-    }
-  }
-}
 
-.cmyk {
-  h1 {
-    font-family: "Kalam", cursive;
-  }
-  p {
-    font-size: 1.25rem;
-  }
-  p, .button {
-    font-family: "Protest Riot", cursive;
+    .b > div:nth-child(10n+#{($i + 1) % 10 + 1}) {
+      transform: scale($scale-even);
+      animation: 12s linear 0s infinite expand#{$i};
+    }
+
+    .c > div:nth-child(10n+#{($i + 3) % 10 + 1}) {
+      transform: scale($scale-even);
+      animation: 8s linear 0s infinite expand#{$i};
+    }
   }
 }
