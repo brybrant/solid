@@ -1,14 +1,12 @@
-import { lazy } from 'solid-js';
 import { render } from 'solid-js/web';
-import { A, HashRouter, Route } from '@solidjs/router';
+import { A, HashRouter, Navigate, Route } from '@solidjs/router';
 import { MetaProvider } from '@solidjs/meta';
 
 import './app.scss';
-const CMYK = lazy(() => import('./pages/cmyk'));
-const RGB = lazy(() => import('./pages/rgb'));
-const XYZ = lazy(() => import('./pages/xyz'));
 
-const app = document.getElementById('app');
+import CMYK from './pages/cmyk';
+import RGB from './pages/rgb';
+import XYZ from './pages/xyz';
 
 const Wrapper = props => (
   <>
@@ -25,10 +23,11 @@ const Wrapper = props => (
 render(() =>
   <MetaProvider>
     <HashRouter root={Wrapper}>
-      <Route path={['/', '/cmyk']} component={CMYK}/>
+      <Route path='/cmyk' component={CMYK}/>
       <Route path='/rgb' component={RGB}/>
       <Route path='/xyz' component={XYZ}/>
+      <Route path='/' component={() => <Navigate href='/cmyk'/>}/>
     </HashRouter>
   </MetaProvider>,
-  app
+  document.getElementById('app')
 );
