@@ -58,16 +58,19 @@
   }
 
   h1 {
-    font-size: 6rem;
-    font-family: "Press Start 2P", monospace;
-  }
-
-  p, .button {
-    font-family: "Jersey 10", monospace;
+    padding-top: 3.875rem;
+    font-weight: 400;
+    font-size: 5.6875rem;
+    font-family: 'Press Start 2P', monospace;
   }
 
   p {
     font-size: 1.5rem;
+  }
+
+  p, .button {
+    font-weight: 400;
+    font-family: 'Jersey 10', monospace;
   }
 
   .button {
