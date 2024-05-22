@@ -15,7 +15,7 @@ export default function RGB() {
         <p>Made with CSS by Matt Bryant</p>
         <a
           class='button'
-          href='https://github.com/brybrant/solid/blob/master/src/pages/rgb.scss'
+          href={`${__GITHUB__}/blob/master/src/pages/rgb.scss`}
           target='_blank'
         >View Source</a>
       </main>

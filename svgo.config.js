@@ -1,3 +1,4 @@
+// https://svgo.dev/docs/plugins/
 export default {
   plugins: [
     'removeDoctype',

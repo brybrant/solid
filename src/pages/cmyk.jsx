@@ -24,7 +24,7 @@ export default function CMYK() {
         <p>Made with CSS by Matt Bryant</p>
         <a
           class='button'
-          href='https://github.com/brybrant/solid/blob/master/src/pages/cmyk.scss'
+          href={`${__GITHUB__}/blob/master/src/pages/cmyk.scss`}
           target='_blank'
         ><GitHubSVG/>View Source</a>
       </main>

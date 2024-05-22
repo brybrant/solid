@@ -3,7 +3,7 @@
   "author": "brybrant",
   "license": "GPL-3.0-only",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -19,22 +19,29 @@
     "npm": ">=9.0.0"
   },
   "dependencies": {
-    "@solidjs/router": "^0.13.2",
-    "@solidjs/meta": "^0.29.3",
-    "solid-js": "^1.8.16"
+    "@solidjs/router": "^0.13.3",
+    "@solidjs/meta": "^0.29.4",
+    "solid-js": "^1.8.17"
   },
   "devDependencies": {
-    "@nabla/vite-plugin-eslint": "^2.0.4",
+    "@fullhuman/postcss-purgecss": "^6.0.0",
     "autoprefixer": "^10.4.19",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
-    "eslint-plugin-solid": "^0.13.2",
+    "eslint-plugin-solid": "^0.14.0",
     "prettier": "^3.2.5",
     "sass": "^1.75.0",
-    "vite": "^5.2.9",
+    "stylelint": "^16.5.0",
+    "stylelint-config-prettier-scss": "^1.0.0",
+    "stylelint-config-hudochenkov": "^10.0.0",
+    "stylelint-config-standard-scss": "^13.1.0",
+    "stylelint-high-performance-animation": "^1.10.0",
+    "vite": "^5.2.11",
+    "vite-plugin-eslint2": "^4.4.0",
     "vite-plugin-solid": "^2.10.2",
-    "vite-plugin-solid-svg": "^0.8.1"
+    "vite-plugin-solid-svg": "^0.8.1",
+    "vite-plugin-stylelint": "^5.3.1"
   },
   "browserslist": [
     "> 1%, not dead, not ie 11, not op_mini all"
