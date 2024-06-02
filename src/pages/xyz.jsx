@@ -1,27 +1,26 @@
-import { Title, Link } from '@solidjs/meta';
+import { Title } from '@solidjs/meta';
 
-import GitHubSVG from '../svg/github.svg';
-import './xyz.scss';
+import SourceButton from '../components/source-button';
+import styles from './xyz.module.scss';
 
 export default function XYZ() {
   return (
-    <div class='xyz'>
+    <>
       <Title>XYZ</Title>
-      <Link href='https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Outfit:wght@700&display=swap' rel='stylesheet'/>
-      <div class='background'>
+      <div class={`background ${styles.background}`}>
         <For each={Array(71)}>{() =>
-          <div class='a'><div class='b'/></div>
+          <div class={styles.cubeContainer}>
+            <div class={styles.cubeTop}/>
+          </div>
         }</For>
       </div>
       <main>
         <h1>XYZ</h1>
-        <p>Made with CSS by Matt Bryant</p>
-        <a
-          class='button'
-          href={`${__GITHUB__}/blob/master/src/pages/xyz.scss`}
-          target='_blank'
-        ><GitHubSVG/>View Source</a>
+
+        <p>By Matt Bryant</p>
+
+        <SourceButton href='/blob/master/src/pages/xyz.module.scss'/>
       </main>
-    </div>
+    </>
   );
 };

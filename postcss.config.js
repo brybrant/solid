@@ -8,8 +8,14 @@ export default () => ({
       flexbox: false,
     }),
     purgeCSSPlugin({
-      content: ['index.html', './src/**/*.jsx'],
+      content: ['index.html', './src/**/*.jsx', './modules/*.json'],
       safelist: ['active'],
+      extractors: [
+        {
+          extractor: content => content.match(/\w+(?="[,}])/g) || [],
+          extensions: ['json'],
+        },
+      ],
     }),
   ],
 });

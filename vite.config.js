@@ -1,39 +1,33 @@
+import * as path from 'node:path';
+import * as fs from 'node:fs';
+
 import { defineConfig } from 'vite';
 import eslintPlugin from 'vite-plugin-eslint2';
 import solidPlugin from 'vite-plugin-solid';
 import solidSvgPlugin from 'vite-plugin-solid-svg';
 import stylelintPlugin from 'vite-plugin-stylelint';
 
+import stylelintConfig from './stylelint.config';
+
 export default defineConfig({
   base: '/solid/',
-  define: {
-    __GITHUB__: JSON.stringify('https://github.com/brybrant/solid'),
+  css: {
+    modules: {
+      getJSON: (cssFileName, json) => {
+        const module = path.basename(cssFileName, '.scss');
+
+        fs.mkdir('./modules', {recursive: true}, (error) => {
+          if (error) throw error;
+
+          fs.writeFileSync(`./modules/${module}.json`, JSON.stringify(json));
+        });
+      },
+    },
   },
   plugins: [
-    // https://stylelint.io/user-guide/configure/
-    // https://stylelint.io/awesome-stylelint/
     stylelintPlugin({
       lintInWorker: true,
-      config: {
-        cache: true,
-        extends: [
-          'stylelint-config-standard-scss',
-          'stylelint-config-prettier-scss',
-          'stylelint-config-hudochenkov/order',
-        ],
-        fix: false,
-        plugins: [
-          'stylelint-high-performance-animation',
-        ],
-        rules: {
-          'hue-degree-notation': 'number',
-          'selector-pseudo-element-colon-notation': 'single',
-          'value-keyword-case': ['lower', {
-            camelCaseSvgKeywords: true
-          }],
-          'plugin/no-low-performance-animation-properties': true
-        },
-      },
+      config: stylelintConfig,
     }),
     solidPlugin(),
     solidSvgPlugin({

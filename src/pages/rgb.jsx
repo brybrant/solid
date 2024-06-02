@@ -1,24 +1,24 @@
-import { Title, Link } from '@solidjs/meta';
+import { Title } from '@solidjs/meta';
 
-import './rgb.scss';
+import SourceButton from '../components/source-button';
+import styles from './rgb.module.scss';
 
 export default function RGB() {
   return (
-    <div class='rgb'>
+    <>
       <Title>RGB</Title>
-      <Link href='https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Jersey+10&display=swap' rel='stylesheet'/>
-      <div class='background'>
-        <For each={Array(256)}>{() => <div class='a'/>}</For>
+      <div class={`background ${styles.background}`}>
+        <For each={Array(256)}>{() =>
+          <div class={styles.pixel}/>
+        }</For>
       </div>
       <main>
         <h1>RGB</h1>
-        <p>Made with CSS by Matt Bryant</p>
-        <a
-          class='button'
-          href={`${__GITHUB__}/blob/master/src/pages/rgb.scss`}
-          target='_blank'
-        >View Source</a>
+
+        <p>By Matt Bryant</p>
+
+        <SourceButton href='/blob/master/src/pages/rgb.module.scss'/>
       </main>
-    </div>
+    </>
   );
 };

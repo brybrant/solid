@@ -1,0 +1,128 @@
+@use 'sass:math';
+
+@for $i from 0 to 6 {
+  $progress: $i * math.div(100%, 6);
+
+  @keyframes rise#{$i + 1} {
+    @if $progress > 50% {
+      #{$progress - 50%} {
+        transform: translateY(-100%);
+      }
+    }
+
+    @if $progress > 0% {
+      #{$progress} {
+        transform: translateY(-50%);
+      }
+    }
+
+    @if $progress < 50% {
+      #{$progress + 50%} {
+        transform: translateY(-100%);
+      }
+    }
+  }
+}
+
+.background {
+  width: max(80vw, 80vh);
+  height: max(100vw, 100vh);
+  background: oklch(40% 45% 260);
+  transform: translate(-50%, -50%) scaleX(math.sqrt(3));
+}
+
+.cubeContainer {
+  position: relative;
+  width: 12.5%;
+  height: 10%;
+  will-change: transform;
+
+  &:before, &:after {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 50%;
+  }
+
+  &:before {
+    top: 100%;
+    left: 0;
+    height: 200%;
+    background: radial-gradient(
+      closest-corner,
+      oklch(30% 38% 260),
+      oklch(40% 42% 260)
+    ) 100% 0% / 200% 200%;
+    transform: skewY(45deg) translateY(-12.5%);
+  }
+
+  &:after {
+    top: 100%;
+    right: 0;
+    height: 200%;
+    background: radial-gradient(
+      closest-corner,
+      oklch(40% 38% 30),
+      oklch(50% 42% 30)
+    ) 0% 0% / 200% 200%;
+    transform: skewY(-45deg) translateY(-12.5%);
+  }
+
+  &:nth-child(13n+1) {
+    margin-left: 12.5%;
+  }
+
+  &:nth-child(13n+6) {
+    margin-right: 12.5%;
+  }
+
+  &:nth-child(13n+7) {
+    margin-left: 6.25%;
+  }
+
+  &:nth-child(13n) {
+    margin-right: 6.25%;
+  }
+}
+
+.cubeTop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 50%;
+  background: radial-gradient(
+    closest-corner,
+    oklch(50% 38% 140),
+    oklch(60% 42% 140)
+  ) 100% 100% / 200% 200%;
+  transform: rotate(45deg) scale(math.sqrt(2)) translate(50%);
+}
+
+// even row animation
+@for $i from 1 through 6 {
+  $position: 50% + math.div(100%, 6) * ($i - 1);
+
+  @if $position > 100% {
+    $position: 200% - $position;
+  }
+
+  .cubeContainer:nth-child(13n+#{$i}) {
+    transform: translateY(-$position);
+    animation: 6s linear 0s infinite rise#{$i};
+  }
+}
+
+// odd row animation
+@for $i from 1 through 7 {
+  $position: 100% - math.div(100%, 6) * ($i - 1);
+
+  @if $position < 50% {
+    $position: 100% - $position;
+  }
+
+  .cubeContainer:nth-child(13n+#{$i + 6}) {
+    transform: translateY(-$position);
+    animation: 6s linear 0s infinite rise#{($i + 2) % 6 + 1};
+  }
+}

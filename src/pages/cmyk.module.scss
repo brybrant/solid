@@ -1,0 +1,97 @@
+@use 'sass:math';
+
+$max-scale: 1.58;
+
+@for $i from 0 to 10 {
+  $progress: $i * math.div(100%, 10);
+
+  @keyframes expand#{$i + 1} {
+    @if $progress > 50% {
+      #{$progress - 50%} {
+        transform: scale($max-scale);
+      }
+    }
+
+    @if $progress > 0% {
+      #{$progress} {
+        transform: scale(0);
+      }
+    }
+
+    @if $progress < 50% {
+      #{$progress + 50%} {
+        transform: scale($max-scale);
+      }
+    }
+  }
+}
+
+$background-scale: math.cos(15deg) + math.sin(15deg);
+
+.background {
+  width: max(100vw * $background-scale, 100vh * $background-scale);
+  height: max(100vw * $background-scale, 100vh * $background-scale);
+  background: #fff;
+  filter: blur(8px);
+}
+
+.yellow, .magenta, .cyan {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-flow: row wrap;
+  mix-blend-mode: multiply;
+
+  & > div {
+    width: 10%;
+    height: 10%;
+    border-radius: 100%;
+    will-change: transform;
+  }
+}
+
+.yellow > div {
+  background: #ff0;
+}
+
+.magenta {
+  transform: rotate(75deg);
+
+  & > div {
+    background: #f0f;
+  }
+}
+
+.cyan {
+  transform: rotate(195deg);
+
+  & > div {
+    background: #0ff;
+  }
+}
+
+
+@for $i from 1 through 10 {
+  $scale-even: math.div($max-scale, 5) * ($i - 1);
+  $scale-odd: $max-scale - $scale-even;
+
+  @if $scale-even > $max-scale {
+    $scale-even: $max-scale * 2 - $scale-even;
+    $scale-odd: math.abs($scale-odd);
+  }
+
+  .yellow > div:nth-child(10n+#{$i}) {
+    transform: scale($scale-odd);
+    animation: 12s linear 0s infinite expand#{($i + 4) % 10 + 1};
+  }
+
+  .magenta > div:nth-child(10n+#{($i + 1) % 10 + 1}) {
+    transform: scale($scale-even);
+    animation: 12s linear 0s infinite expand#{$i};
+  }
+
+  .cyan > div:nth-child(10n+#{($i + 3) % 10 + 1}) {
+    transform: scale($scale-even);
+    animation: 8s linear 0s infinite expand#{$i};
+  }
+}
