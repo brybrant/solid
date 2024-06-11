@@ -10,7 +10,7 @@ import XYZ from './pages/xyz';
 
 const Wrapper = props => (
   <>
-    <div class='navBlur'/>
+    <div class='nav_blur'/>
     <nav>
       <A href='/cmyk'>CMYK<div/></A>
       <A href='/rgb'>RGB<div/></A>

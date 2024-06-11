@@ -31,7 +31,7 @@
   transform: translate(-50%, -50%) scaleX(math.sqrt(3));
 }
 
-.cubeContainer {
+.cube_container {
   position: relative;
   width: 12.5%;
   height: 10%;
@@ -85,7 +85,7 @@
   }
 }
 
-.cubeTop {
+.cube_top {
   position: absolute;
   top: 0;
   left: 0;
@@ -107,7 +107,7 @@
     $position: 200% - $position;
   }
 
-  .cubeContainer:nth-child(13n+#{$i}) {
+  .cube_container:nth-child(13n+#{$i}) {
     transform: translateY(-$position);
     animation: 6s linear 0s infinite rise#{$i};
   }
@@ -121,7 +121,7 @@
     $position: 100% - $position;
   }
 
-  .cubeContainer:nth-child(13n+#{$i + 6}) {
+  .cube_container:nth-child(13n+#{$i + 6}) {
     transform: translateY(-$position);
     animation: 6s linear 0s infinite rise#{($i + 2) % 6 + 1};
   }

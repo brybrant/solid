@@ -9,8 +9,8 @@ export default function XYZ() {
       <Title>XYZ</Title>
       <div class={`background ${styles.background}`}>
         <For each={Array(71)}>{() =>
-          <div class={styles.cubeContainer}>
-            <div class={styles.cubeTop}/>
+          <div class={styles.cube_container}>
+            <div class={styles.cube_top}/>
           </div>
         }</For>
       </div>

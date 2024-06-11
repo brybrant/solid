@@ -1,37 +1,30 @@
-import * as path from 'node:path';
-import * as fs from 'node:fs';
-
 import { defineConfig } from 'vite';
 import eslintPlugin from 'vite-plugin-eslint2';
 import solidPlugin from 'vite-plugin-solid';
 import solidSvgPlugin from 'vite-plugin-solid-svg';
 import stylelintPlugin from 'vite-plugin-stylelint';
 
-import stylelintConfig from './stylelint.config';
+import * as configs from '@brybrant/configs';
 
 export default defineConfig({
   base: '/solid/',
   css: {
     modules: {
-      getJSON: (cssFileName, json) => {
-        const module = path.basename(cssFileName, '.scss');
-
-        fs.mkdir('./modules', {recursive: true}, (error) => {
-          if (error) throw error;
-
-          fs.writeFileSync(`./modules/${module}.json`, JSON.stringify(json));
-        });
-      },
+      getJSON: configs.cssModulesExportJSON,
     },
+    postcss: configs.postCSSConfig,
   },
   plugins: [
     stylelintPlugin({
       lintInWorker: true,
-      config: stylelintConfig,
+      config: configs.stylelintConfig,
     }),
     solidPlugin(),
     solidSvgPlugin({
       defaultAsComponent: true,
+      svgo: {
+        svgoConfig: configs.svgoConfig,
+      },
     }),
     eslintPlugin({
       lintInWorker: true,
