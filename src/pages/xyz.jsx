@@ -3,7 +3,7 @@ import { Title } from '@solidjs/meta';
 import SourceButton from '../components/source-button';
 import styles from './xyz.module.scss';
 
-export default function XYZ() {
+export default () => {
   return (
     <>
       <Title>XYZ</Title>

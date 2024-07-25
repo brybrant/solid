@@ -3,7 +3,7 @@ import { Title } from '@solidjs/meta';
 import SourceButton from '../components/source-button';
 import styles from './cmyk.module.scss';
 
-export default function CMYK() {
+export default () => {
   return (
     <>
       <Title>CMYK</Title>

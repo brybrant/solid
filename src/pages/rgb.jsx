@@ -3,7 +3,7 @@ import { Title } from '@solidjs/meta';
 import SourceButton from '../components/source-button';
 import styles from './rgb.module.scss';
 
-export default function RGB() {
+export default () => {
   return (
     <>
       <Title>RGB</Title>
