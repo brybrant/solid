@@ -51,7 +51,7 @@ $nav-line-height: 1.5rem;
 $nav-vertical-padding: 0.125rem;
 $nav-height: $nav-line-height + $nav-vertical-padding * 2;
 
-.nav_blur {
+.nav__blur {
   position: fixed;
   top: 0;
   right: 0;
@@ -157,15 +157,15 @@ nav {
       height: $nav-height;
     }
 
-    &[href$='cmyk'] div:after {
+    &[href$=cmyk] div:after {
       content: 'CMYK';
     }
 
-    &[href$='rgb'] div:after {
+    &[href$=rgb] div:after {
       content: 'RGB';
     }
 
-    &[href$='xyz'] div:after {
+    &[href$=xyz] div:after {
       content: 'XYZ';
     }
   }
