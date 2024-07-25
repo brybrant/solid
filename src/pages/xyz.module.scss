@@ -1,4 +1,5 @@
 @use 'sass:math';
+@use '../../node_modules/@brybrant/sass-okhsv-okhsl' as convert;
 
 @for $i from 0 to 6 {
   $progress: $i * math.div(100%, 6);
@@ -27,7 +28,7 @@
 .background {
   width: max(80vw, 80vh);
   height: max(100vw, 100vh);
-  background: oklch(40% 45% 260);
+  background: convert.color_to_hex(convert.okhsv_to_rgba(265deg, 0.85, 0.5));
   transform: translate(-50%, -50%) scaleX(math.sqrt(3));
 }
 
@@ -50,8 +51,8 @@
     height: 200%;
     background: radial-gradient(
       closest-corner,
-      oklch(30% 38% 260),
-      oklch(40% 42% 260)
+      convert.color_to_hex(convert.okhsv_to_rgba(265deg, 0.85, 0.45)),
+      convert.color_to_hex(convert.okhsv_to_rgba(265deg, 0.85, 0.65))
     ) 100% 0% / 200% 200%;
     transform: skewY(45deg) translateY(-12.5%);
   }
@@ -62,8 +63,8 @@
     height: 200%;
     background: radial-gradient(
       closest-corner,
-      oklch(40% 38% 30),
-      oklch(50% 42% 30)
+      convert.color_to_hex(convert.okhsv_to_rgba(29deg, 0.85, 0.45)),
+      convert.color_to_hex(convert.okhsv_to_rgba(29deg, 0.85, 0.65))
     ) 0% 0% / 200% 200%;
     transform: skewY(-45deg) translateY(-12.5%);
   }
@@ -93,8 +94,8 @@
   height: 50%;
   background: radial-gradient(
     closest-corner,
-    oklch(50% 38% 140),
-    oklch(60% 42% 140)
+    convert.color_to_hex(convert.okhsv_to_rgba(140deg, 0.85, 0.45)),
+    convert.color_to_hex(convert.okhsv_to_rgba(140deg, 0.85, 0.65))
   ) 100% 100% / 200% 200%;
   transform: rotate(45deg) scale(math.sqrt(2)) translate(50%);
 }

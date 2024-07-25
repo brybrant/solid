@@ -1,4 +1,5 @@
 @use 'sass:math';
+@use '../../node_modules/@brybrant/sass-okhsv-okhsl' as convert;
 
 // 15n keyframes
 @for $i from 0 to 15 {
@@ -53,7 +54,7 @@
 .background {
   width: max(100vw, 100vh);
   height: max(100vw, 100vh);
-  background: oklch(50% 50% 30);
+  background: convert.color_to_hex(convert.okhsv_to_rgba(29deg, 1, 0.65));
 }
 
 .pixel {
@@ -72,11 +73,11 @@
   }
 
   &:before {
-    background: oklch(60% 50% 140);
+    background: convert.color_to_hex(convert.okhsv_to_rgba(140deg, 1, 0.65));
   }
 
   &:after {
-    background: oklch(45% 50% 270);
+    background: convert.color_to_hex(convert.okhsv_to_rgba(265deg, 1, 0.65));
     mix-blend-mode: difference;
   }
 }

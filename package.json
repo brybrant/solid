@@ -19,15 +19,16 @@
     "npm": ">=9.0.0"
   },
   "dependencies": {
-    "@solidjs/router": "^0.13.3",
+    "@solidjs/router": "^0.13.6",
     "@solidjs/meta": "^0.29.4",
-    "solid-js": "^1.8.17"
+    "solid-js": "^1.8.19"
   },
   "devDependencies": {
-    "@brybrant/configs": "github:brybrant/configs#d42a5c6ece8277bab17c9c8381ca628b7ec675b2",
-    "eslint-plugin-solid": "^0.14.0",
-    "sass": "^1.75.0",
-    "vite": "^5.2.11",
+    "@brybrant/configs": "github:brybrant/configs",
+    "@brybrant/sass-okhsv-okhsl": "github:brybrant/sass-okhsv-okhsl",
+    "eslint-plugin-solid": "^0.14.1",
+    "sass": "^1.77.8",
+    "vite": "^5.3.5",
     "vite-plugin-eslint2": "^4.4.0",
     "vite-plugin-solid": "^2.10.2",
     "vite-plugin-solid-svg": "^0.8.1",
