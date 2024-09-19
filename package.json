@@ -3,7 +3,7 @@
   "author": "brybrant",
   "license": "GPL-3.0-only",
   "private": true,
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,24 +12,25 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/brybrant/solid.git"
+    "url": "git+https://github.com/brybrant/solid.git"
   },
+  "homepage": "https://brybrant.github.io/solid/",
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=9.0.0"
   },
   "dependencies": {
-    "@solidjs/router": "^0.13.6",
+    "@solidjs/router": "^0.14.5",
     "@solidjs/meta": "^0.29.4",
-    "solid-js": "^1.8.19"
+    "solid-js": "^1.8.22"
   },
   "devDependencies": {
     "@brybrant/configs": "github:brybrant/configs",
     "@brybrant/sass-okhsv-okhsl": "github:brybrant/sass-okhsv-okhsl",
-    "eslint-plugin-solid": "^0.14.1",
-    "sass": "^1.77.8",
-    "vite": "^5.3.5",
-    "vite-plugin-eslint2": "^4.4.0",
+    "eslint-plugin-solid": "^0.14.3",
+    "sass": "^1.79.1",
+    "vite": "^5.4.6",
+    "vite-plugin-eslint2": "^4.4.1",
     "vite-plugin-solid": "^2.10.2",
     "vite-plugin-solid-svg": "^0.8.1",
     "vite-plugin-stylelint": "^5.3.1"

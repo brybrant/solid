@@ -1,5 +1,5 @@
-import eslintPluginSolid from 'eslint-plugin-solid/configs/recommended.js';
+import eslintPluginSolid from 'eslint-plugin-solid';
 
 import { eslintConfig } from '@brybrant/configs';
 
-export default eslintConfig(eslintPluginSolid);
+export default eslintConfig(eslintPluginSolid.configs['flat/recommended']);
