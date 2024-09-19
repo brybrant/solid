@@ -26,4 +26,3 @@ dist-ssr
 # Custom
 modules
 .stylelintcache
-*.code-workspace
