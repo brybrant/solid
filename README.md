@@ -1,4 +1,4 @@
-# Solid + Vite
+# Solid
 
 Some CSS experiments made with [Solid](https://solidjs.com) and [Vite](https://vitejs.dev) by Matt Bryant:
 
