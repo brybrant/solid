@@ -1,4 +1,4 @@
-import GitHubSVG from '../svg/github.svg';
+import GitHubSVG from '../../node_modules/@brybrant/svg-icons/GitHub.svg';
 
 export default function SourceButton(props) {
   return (
@@ -6,6 +6,9 @@ export default function SourceButton(props) {
       class='button'
       href={`https://github.com/brybrant/solid${props.href || ''}`}
       target='_blank'
-    ><GitHubSVG/>View Source</a>
+    >
+      <GitHubSVG />
+      View Source
+    </a>
   );
-};
+}

@@ -8,16 +8,14 @@ export default () => {
     <>
       <Title>RGB</Title>
       <div class={`background ${styles.background}`}>
-        <For each={Array(256)}>{() =>
-          <div class={styles.pixel}/>
-        }</For>
+        <For each={Array(256)}>{() => <div class={styles.pixel} />}</For>
       </div>
       <main>
         <h1>RGB</h1>
 
         <p>By Matt Bryant</p>
 
-        <SourceButton href='/blob/master/src/pages/rgb.module.scss'/>
+        <SourceButton href='/blob/master/src/pages/rgb.module.scss' />
       </main>
     </>
   );
