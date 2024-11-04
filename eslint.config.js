@@ -16,8 +16,5 @@ export default eslintConfig({
       },
     },
   },
-  rules: {
-    ...eslintPluginSolid.rules,
-    'solid/jsx-no-undef': 0,
-  },
+  rules: eslintPluginSolid.rules,
 });
