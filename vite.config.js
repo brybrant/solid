@@ -13,20 +13,9 @@ export default defineConfig(({ mode }) => {
     base: '/solid/',
     build: {
       minify: development ? true : 'terser',
-      terserOptions: {
-        compress: {
-          booleans_as_integers: true,
-          drop_console: true,
-          module: true,
-          passes: 2,
-        },
-        mangle: {
-          module: true,
-        },
-        format: {
-          comments: false,
-        },
-      },
+      ...(!development && {
+        terserOptions: configs.terserConfig,
+      }),
     },
     css: {
       modules: {

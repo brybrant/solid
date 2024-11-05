@@ -3,7 +3,7 @@
   "author": "brybrant",
   "license": "GPL-3.0-only",
   "private": true,
-  "version": "0.0.5",
+  "version": "0.0.6",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -20,7 +20,7 @@
     "npm": ">=9.0.0"
   },
   "dependencies": {
-    "@solidjs/router": "^0.14.10",
+    "@solidjs/router": "^0.15.0",
     "@solidjs/meta": "^0.29.4",
     "solid-js": "^1.9.3"
   },
@@ -29,11 +29,10 @@
     "@brybrant/sass-okhsv-okhsl": "^1.0.0",
     "@brybrant/svg-icons": "github:brybrant/svg-icons",
     "eslint-plugin-solid": "^0.14.3",
-    "globals": "^15.11.0",
+    "globals": "^15.12.0",
     "sass-embedded": "^1.80.6",
-    "terser": "^5.36.0",
     "vite": "^5.4.10",
-    "vite-plugin-eslint2": "^4.4.2",
+    "vite-plugin-eslint2": "^5.0.1",
     "vite-plugin-solid": "^2.10.2",
     "vite-plugin-solid-svg": "^0.8.1",
     "vite-plugin-stylelint": "^5.3.1"
