@@ -6,8 +6,8 @@ import { coordinates } from '../components/coordinates';
 import SourceButton from '../components/source-button';
 import styles from './rgb.module.scss';
 
-const columns = 16;
-const rows = 16;
+const columns = 8;
+const rows = 8;
 
 const BackgroundElement = (props) => {
   const distance = createMemo(() =>

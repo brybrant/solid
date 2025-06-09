@@ -19,13 +19,13 @@ $led0-y-offset: math.div($svg-size - $led0-height, 2); // 0.5
 .background {
   width: max(102vw, 102vh);
   height: max(102vw, 102vh);
-  background: #000 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' opacity='.5' viewBox='0 0 #{$svg-size} #{$svg-size}'%3E%3Crect fill='red' x='#{round($led0-x * 0 + $led0-x-offset, 3)}' y='#{$led0-y-offset}' width='#{$led0-width}' height='#{$led0-height}' rx='#{$led0-radius}' ry='#{$led0-radius}'/%3E%3Crect fill='lime' x='#{round($led0-x * 1 + $led0-x-offset, 3)}' y='#{$led0-y-offset}' width='#{$led0-width}' height='#{$led0-height}' rx='#{$led0-radius}' ry='#{$led0-radius}'/%3E%3Crect fill='blue' x='#{round($led0-x * 2 + $led0-x-offset, 3)}' y='#{$led0-y-offset}' width='#{$led0-width}' height='#{$led0-height}' rx='#{$led0-radius}' ry='#{$led0-radius}'/%3E%3C/svg%3E") 0 0 / 6.25% 6.25%;
+  background: #000 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' opacity='.5' viewBox='0 0 #{$svg-size} #{$svg-size}'%3E%3Crect fill='red' x='#{round($led0-x * 0 + $led0-x-offset, 3)}' y='#{$led0-y-offset}' width='#{$led0-width}' height='#{$led0-height}' rx='#{$led0-radius}' ry='#{$led0-radius}'/%3E%3Crect fill='lime' x='#{round($led0-x * 1 + $led0-x-offset, 3)}' y='#{$led0-y-offset}' width='#{$led0-width}' height='#{$led0-height}' rx='#{$led0-radius}' ry='#{$led0-radius}'/%3E%3Crect fill='blue' x='#{round($led0-x * 2 + $led0-x-offset, 3)}' y='#{$led0-y-offset}' width='#{$led0-width}' height='#{$led0-height}' rx='#{$led0-radius}' ry='#{$led0-radius}'/%3E%3C/svg%3E") 0 0 / 12.5% 12.5%;
 }
 
 .pixel {
   position: relative;
-  width: 6.25%;
-  height: 6.25%;
+  width: 12.5%;
+  height: 12.5%;
 }
 
 .subpixels {
