@@ -6,11 +6,11 @@ import { MetaProvider } from '@solidjs/meta';
 import './app.scss';
 
 import {
+  animate,
   mouseenter,
   mouseleave,
   mousemove,
   resize,
-  startAnimation,
   stopAnimation,
 } from './components/coordinates';
 
@@ -27,7 +27,7 @@ const Wrapper = (props) => {
     document.body.addEventListener('mousemove', mousemove);
     window.addEventListener('resize', resize);
 
-    requestAnimationFrame(startAnimation);
+    requestAnimationFrame(animate);
   });
 
   onCleanup(() => {

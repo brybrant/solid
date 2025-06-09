@@ -29,9 +29,12 @@ export function resize() {
       : window.innerWidth / window.innerHeight;
 }
 
-let lerpFactor = 0;
+let deltaTime = 100 / 6;
 
 function lerp(a, b) {
+  // https://www.gamedeveloper.com/programming/improved-lerp-smoothing-
+  const lerpFactor = Math.exp(-0.15 * deltaTime);
+
   return a * (1 - lerpFactor) + b * lerpFactor;
 }
 
@@ -41,8 +44,13 @@ let counter = 0;
 
 let animation = true;
 
-function animate() {
+let lastTimestamp = 0;
+
+export function animate(timestamp) {
   if (!animation) return;
+
+  deltaTime = timestamp - lastTimestamp;
+  lastTimestamp = timestamp;
 
   if (mouseOver) {
     window.innerWidth > window.innerHeight
@@ -68,20 +76,6 @@ function animate() {
   counter = (counter + 1) % 360;
 
   requestAnimationFrame(animate);
-}
-
-export function startAnimation(timestamp) {
-  if (lerpFactor > 0) {
-    // https://www.gamedeveloper.com/programming/improved-lerp-smoothing-
-    lerpFactor = Math.exp(
-      -0.15 * (Math.round((timestamp - lerpFactor) * 100) / 100),
-    );
-    return requestAnimationFrame(animate);
-  } else {
-    lerpFactor = timestamp;
-  }
-
-  requestAnimationFrame(startAnimation);
 }
 
 export const stopAnimation = () => (animation = false);
