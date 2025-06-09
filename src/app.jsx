@@ -1,33 +1,65 @@
+import { onCleanup, onMount } from 'solid-js';
 import { render } from 'solid-js/web';
 import { A, HashRouter, Navigate, Route } from '@solidjs/router';
 import { MetaProvider } from '@solidjs/meta';
 
 import './app.scss';
 
+import {
+  mouseenter,
+  mouseleave,
+  mousemove,
+  resize,
+  startAnimation,
+  stopAnimation,
+} from './components/coordinates';
+
 import CMYK from './pages/cmyk';
 import RGB from './pages/rgb';
 import XYZ from './pages/xyz';
 
-const Wrapper = (props) => (
-  <>
-    <div class='nav__blur' />
-    <nav>
-      <A href='/cmyk'>
-        CMYK
-        <div />
-      </A>
-      <A href='/rgb'>
-        RGB
-        <div />
-      </A>
-      <A href='/xyz'>
-        XYZ
-        <div />
-      </A>
-    </nav>
-    {props.children}
-  </>
-);
+const Wrapper = (props) => {
+  onMount(() => {
+    resize();
+
+    document.body.addEventListener('mouseenter', mouseenter);
+    document.body.addEventListener('mouseleave', mouseleave);
+    document.body.addEventListener('mousemove', mousemove);
+    window.addEventListener('resize', resize);
+
+    requestAnimationFrame(startAnimation);
+  });
+
+  onCleanup(() => {
+    stopAnimation();
+
+    document.body.removeEventListener('mouseenter', mouseenter);
+    document.body.removeEventListener('mouseleave', mouseleave);
+    document.body.removeEventListener('mousemove', mousemove);
+    window.removeEventListener('resize', resize);
+  });
+
+  return (
+    <>
+      <div class='nav__blur' />
+      <nav>
+        <A href='/cmyk'>
+          CMYK
+          <div />
+        </A>
+        <A href='/rgb'>
+          RGB
+          <div />
+        </A>
+        <A href='/xyz'>
+          XYZ
+          <div />
+        </A>
+      </nav>
+      {props.children}
+    </>
+  );
+};
 
 render(
   () => (

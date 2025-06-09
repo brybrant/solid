@@ -1,20 +1,61 @@
-import { For } from 'solid-js';
+import { createMemo } from 'solid-js';
+
 import { Title } from '@solidjs/meta';
 
+import { coordinates } from '../components/coordinates';
 import SourceButton from '../components/source-button';
 import styles from './rgb.module.scss';
+
+const columns = 16;
+const rows = 16;
+
+const BackgroundElement = (props) => {
+  const distance = createMemo(() =>
+    Math.exp(
+      -Math.sqrt(
+        Math.pow(coordinates().x - props.column / (columns - 1), 2) +
+          Math.pow(coordinates().y - props.row / (rows - 1), 2),
+      ) * 1.5,
+    ),
+  );
+
+  return (
+    <div class={styles.pixel}>
+      <div
+        class={`${styles.subpixels} ${styles.subpixels1}`}
+        style={{
+          opacity: distance(),
+        }}
+      />
+      <div
+        class={`${styles.subpixels} ${styles.subpixels2}`}
+        style={{
+          opacity: Math.max((distance() - 0.5) * 2, 0),
+        }}
+      />
+    </div>
+  );
+};
 
 export default () => {
   return (
     <>
       <Title>RGB</Title>
       <div class={`background ${styles.background}`}>
-        <For each={Array(256)}>{() => <div class={styles.pixel} />}</For>
+        {() => {
+          const elements = [];
+
+          for (let row = 0; row < rows; row++) {
+            for (let column = 0; column < columns; column++) {
+              elements.push(<BackgroundElement column={column} row={row} />);
+            }
+          }
+
+          return elements;
+        }}
       </div>
       <main>
         <h1>RGB</h1>
-
-        <p>By Matt Bryant</p>
 
         <SourceButton href='/blob/master/src/pages/rgb.module.scss' />
       </main>

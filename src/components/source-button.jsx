@@ -8,7 +8,6 @@ export default function SourceButton(props) {
       target='_blank'
     >
       <GitHubSVG />
-      View Source
     </a>
   );
 }

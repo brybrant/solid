@@ -1,111 +1,78 @@
 @use 'sass:math';
-@use '../../node_modules/@brybrant/sass-okhsv-okhsl' as convert;
 
-// 15n keyframes
-@for $i from 0 to 15 {
-  $progress: $i * math.div(100%, 15);
+$svg-size: 8;
+$svg-center: math.div($svg-size, 2); // 4
+$led0-width: 2;
+$led0-height: 7;
+$led0-radius: math.div($led0-width, 2); // 1
+$led0-aspect-ratio: math.div($led0-height, $led0-width); // 3.5
+$led0-x: math.div($svg-size, 3); // 2.6666
+$led0-x-offset: math.div($led0-x - $led0-width, 2); // 0.3333
+$led0-y-offset: math.div($svg-size - $led0-height, 2); // 0.5
 
-  @keyframes blink15#{$i + 1} {
-    @if $progress > 50% {
-      #{$progress - 50%} {
-        opacity: 1;
-      }
-    }
+@function round($number: 0, $precision: 1) {
+  $multiplier: math.pow(10, math.clamp(1, math.round($precision), 9));
 
-    @if $progress > 0% {
-      #{$progress} {
-        opacity: 0;
-      }
-    }
-
-    @if $progress < 50% {
-      #{$progress + 50%} {
-        opacity: 1;
-      }
-    }
-  }
-}
-
-// 17n keyframes
-@for $i from 0 to 17 {
-  $progress: $i * math.div(100%, 17);
-
-  @keyframes blink17#{$i + 1} {
-    @if $progress > 50% {
-      #{$progress - 50%} {
-        opacity: 1;
-      }
-    }
-
-    @if $progress > 0% {
-      #{$progress} {
-        opacity: 0;
-      }
-    }
-
-    @if $progress < 50% {
-      #{$progress + 50%} {
-        opacity: 1;
-      }
-    }
-  }
+  @return math.div(math.round($number * $multiplier), $multiplier);
 }
 
 .background {
-  width: max(100vw, 100vh);
-  height: max(100vw, 100vh);
-  background: convert.color_to_hex(convert.okhsv_to_rgba(29deg, 1, 0.65));
+  width: max(102vw, 102vh);
+  height: max(102vw, 102vh);
+  background: #000 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' opacity='.5' viewBox='0 0 #{$svg-size} #{$svg-size}'%3E%3Crect fill='red' x='#{round($led0-x * 0 + $led0-x-offset, 3)}' y='#{$led0-y-offset}' width='#{$led0-width}' height='#{$led0-height}' rx='#{$led0-radius}' ry='#{$led0-radius}'/%3E%3Crect fill='lime' x='#{round($led0-x * 1 + $led0-x-offset, 3)}' y='#{$led0-y-offset}' width='#{$led0-width}' height='#{$led0-height}' rx='#{$led0-radius}' ry='#{$led0-radius}'/%3E%3Crect fill='blue' x='#{round($led0-x * 2 + $led0-x-offset, 3)}' y='#{$led0-y-offset}' width='#{$led0-width}' height='#{$led0-height}' rx='#{$led0-radius}' ry='#{$led0-radius}'/%3E%3C/svg%3E") 0 0 / 6.25% 6.25%;
 }
 
 .pixel {
   position: relative;
   width: 6.25%;
   height: 6.25%;
-
-  &:before, &:after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    display: block;
-    width: 100%;
-    height: 100%;
-    will-change: opacity;
-  }
-
-  &:before {
-    background: convert.color_to_hex(convert.okhsv_to_rgba(140deg, 1, 0.65));
-  }
-
-  &:after {
-    background: convert.color_to_hex(convert.okhsv_to_rgba(265deg, 1, 0.65));
-    mix-blend-mode: difference;
-  }
 }
 
-// 15n animation
-@for $i from 1 through 15 {
-  $opacity: math.div(2, 15) * ($i - 1);
-
-  @if $opacity > 1 {
-    $opacity: 2 - $opacity;
-  }
-
-  .pixel:nth-child(15n+#{$i}):before {
-    opacity: $opacity;
-    animation: 4s linear 0s infinite blink15#{$i};
-  }
+.subpixels {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: contain;
+  mix-blend-mode: screen;
+  // mix-blend-mode: plus-lighter;
+  will-change: opacity;
 }
 
-// 17n animation
-@for $i from 1 through 17 {
-  $opacity: math.div(2, 17) * ($i - 1);
+$blur-divisor: math.div(5, 1.8); // 2.7777
 
-  @if $opacity > 1 {
-    $opacity: 2 - $opacity;
-  }
+@mixin subpixels-background($led-blur: 0) {
+  $led-blur2: $led-blur * 2;
+  $led-std: round(math.div($led-blur, $blur-divisor), 3);
+  $led-width: $led0-x - $led-blur2;
+  $led-height: ($led-width - $led-blur2) * $led0-aspect-ratio + $led-blur2;
+  $led-half-width: math.div($led-width, 2);
+  $led-scale: math.div($led0-height, $led-height - $led-blur2);
 
-  .pixel:nth-child(17n+#{$i}):after {
-    opacity: $opacity;
-    animation: 12s linear 0s infinite blink17#{$i};
-  }
+  // LED coordinates
+
+  $led-y-offset: round(math.div($svg-size - $led-height, 2), 3);
+  $led-subtractor: math.div($led0-x, $led-scale);
+  $led1-x: round($svg-center - $led-subtractor - $led-half-width, 3);
+  $led2-x: round($svg-center - $led-half-width, 3);
+  $led3-x: round($svg-center + $led-subtractor - $led-half-width, 3);
+
+  // LED round
+
+  $led-width-round: round($led-width, 3);
+  $led-height-round: round($led-height, 3);
+  $led-radius: round($led-half-width, 3);
+
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 #{$svg-size} #{$svg-size}'%3E%3Cfilter id='z' filterUnits='userSpaceOnUse'%3E%3CfeGaussianBlur stdDeviation='#{$led-std}'/%3E%3C/filter%3E%3Cstyle%3Erect{filter:url(%23z);mix-blend-mode:screen}%3C/style%3E%3Crect fill='red' x='#{$led1-x}' y='#{$led-y-offset}' width='#{$led-width-round}' height='#{$led-height-round}' rx='#{$led-radius}' ry='#{$led-radius}'/%3E%3Crect fill='lime' x='#{$led2-x}' y='#{$led-y-offset}' width='#{$led-width-round}' height='#{$led-height-round}' rx='#{$led-radius}' ry='#{$led-radius}'/%3E%3Crect fill='blue' x='#{$led3-x}' y='#{$led-y-offset}' width='#{$led-width-round}' height='#{$led-height-round}' rx='#{$led-radius}' ry='#{$led-radius}'/%3E%3C/svg%3E");
+  transform: scale(round($led-scale));
+}
+
+.subpixels1 {
+  @include subpixels-background(0.41667);
+}
+
+.subpixels2 {
+  @include subpixels-background(0.5);
 }

@@ -3,7 +3,7 @@
   "author": "brybrant",
   "license": "GPL-3.0-only",
   "private": true,
-  "version": "0.0.6",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -20,22 +20,22 @@
     "npm": ">=9.0.0"
   },
   "dependencies": {
-    "@solidjs/router": "^0.15.0",
+    "@solidjs/router": "^0.15.3",
     "@solidjs/meta": "^0.29.4",
-    "solid-js": "^1.9.3"
+    "solid-js": "^1.9.7"
   },
   "devDependencies": {
     "@brybrant/configs": "github:brybrant/configs",
     "@brybrant/sass-okhsv-okhsl": "^1.0.0",
     "@brybrant/svg-icons": "github:brybrant/svg-icons",
-    "eslint-plugin-solid": "^0.14.3",
-    "globals": "^15.12.0",
-    "sass-embedded": "^1.80.6",
-    "vite": "^5.4.10",
-    "vite-plugin-eslint2": "^5.0.1",
-    "vite-plugin-solid": "^2.10.2",
+    "eslint-plugin-solid": "^0.14.5",
+    "globals": "^16.2.0",
+    "sass-embedded": "^1.89.1",
+    "vite": "^6.3.5",
+    "vite-plugin-eslint2": "^5.0.3",
+    "vite-plugin-solid": "^2.11.6",
     "vite-plugin-solid-svg": "^0.8.1",
-    "vite-plugin-stylelint": "^5.3.1"
+    "vite-plugin-stylelint": "^6.0.0"
   },
   "browserslist": [
     "> 1%, not dead, not ie 11, not op_mini all"
