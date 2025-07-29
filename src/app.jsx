@@ -5,14 +5,7 @@ import { MetaProvider } from '@solidjs/meta';
 
 import './app.scss';
 
-import {
-  animate,
-  mouseenter,
-  mouseleave,
-  mousemove,
-  resize,
-  stopAnimation,
-} from './components/coordinates';
+import { mouseenter, mouseleave, mousemove } from './components/canvas';
 
 import CMYK from './pages/cmyk';
 import RGB from './pages/rgb';
@@ -20,23 +13,15 @@ import XYZ from './pages/xyz';
 
 const Wrapper = (props) => {
   onMount(() => {
-    resize();
-
     document.body.addEventListener('mouseenter', mouseenter);
     document.body.addEventListener('mouseleave', mouseleave);
     document.body.addEventListener('mousemove', mousemove);
-    window.addEventListener('resize', resize);
-
-    requestAnimationFrame(animate);
   });
 
   onCleanup(() => {
-    stopAnimation();
-
     document.body.removeEventListener('mouseenter', mouseenter);
     document.body.removeEventListener('mouseleave', mouseleave);
     document.body.removeEventListener('mousemove', mousemove);
-    window.removeEventListener('resize', resize);
   });
 
   return (
@@ -61,7 +46,7 @@ const Wrapper = (props) => {
   );
 };
 
-render(
+const dispose = render(
   () => (
     <MetaProvider>
       <HashRouter root={Wrapper}>
@@ -74,3 +59,8 @@ render(
   ),
   document.getElementById('app'),
 );
+
+if (import.meta.hot) {
+  import.meta.hot.accept();
+  import.meta.hot.dispose(dispose);
+}

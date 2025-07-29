@@ -1,54 +1,105 @@
 import { Title } from '@solidjs/meta';
 
-import { coordinates, root2 } from '../components/coordinates';
+import { Canvas, rad360 } from '../components/canvas';
 import SourceButton from '../components/source-button';
 import styles from './cmyk.module.scss';
 
-const columns = 10;
-const rows = 10;
+const rowsAndColumns = 10;
+const center = rowsAndColumns / 2;
+const radian = Math.PI / 180;
+const scale = Math.sin(15 * radian) + Math.cos(15 * radian);
+const cellSize = (1 / rowsAndColumns) * scale;
+const cellSizeHalf = cellSize / 2;
+const cellRadius = cellSize / Math.SQRT2;
 
-const BackgroundElement = (props) => (
-  <div
-    style={{
-      transform: `scale(${
-        (props.invert ? 0 : root2) -
-        Math.sqrt(
-          Math.pow(coordinates().x - props.column / (columns - 1), 2) +
-            Math.pow(coordinates().y - props.row / (rows - 1), 2),
-        )
-      })`,
-    }}
-  />
-);
+/** @type {{ centerX: Number, centerY: Number, radius: Number }[]} */
+const ellipses = [];
 
-function createElements(invert = false) {
-  const elements = [];
+for (let column = 0; column < rowsAndColumns; column++) {
+  for (let row = 0; row < rowsAndColumns; row++) {
+    ellipses.push({
+      centerX: (column - center) * cellSize + cellSizeHalf,
+      centerY: (row - center) * cellSize + cellSizeHalf,
+      radius: 0,
+    });
+  }
+}
 
-  for (let row = 0; row < rows; row++) {
-    for (let column = 0; column < columns; column++) {
-      elements.push(
-        <BackgroundElement column={column} row={row} invert={invert} />,
-      );
+/** @type {import('../components/canvas').DistanceFunction} */
+const distance = (column, row, coords) =>
+  1 -
+  Math.sqrt(
+    Math.pow(coords.mouseX - column / rowsAndColumns, 2) +
+      Math.pow(coords.mouseY - row / rowsAndColumns, 2),
+  ) /
+    Math.SQRT2;
+
+/** @type {{ color: String, rotation: Number }[]} */
+const inks = [
+  {
+    color: '#0ff',
+    rotation: 15 * radian,
+  },
+  {
+    color: '#f0f',
+    rotation: 150 * radian,
+  },
+  {
+    color: '#ff0',
+    rotation: 105 * radian,
+  },
+];
+
+/** @type {import('../components/canvas').RenderCallback} */
+function render(context, coords) {
+  context.save();
+
+  context.fillStyle = '#fff';
+
+  context.fillRect(-1, -1, 3, 3);
+
+  for (let column = 0, i = 0; column < rowsAndColumns; column++) {
+    for (let row = 0; row < rowsAndColumns; row++, i++) {
+      ellipses[i].radius = cellRadius * distance(column, row, coords);
     }
   }
 
-  return elements;
+  let subtract = false;
+
+  for (const ink of inks) {
+    context.fillStyle = ink.color;
+    context.rotate(ink.rotation);
+
+    if (subtract) context.globalCompositeOperation = 'multiply';
+
+    for (const ellipse of ellipses) {
+      context.beginPath();
+      context.ellipse(
+        ellipse.centerX,
+        ellipse.centerY,
+        ellipse.radius,
+        ellipse.radius,
+        0,
+        0,
+        rad360,
+      );
+      context.fill();
+    }
+
+    subtract = true;
+  }
+
+  context.restore();
 }
 
-export default () => {
-  return (
-    <>
-      <Title>CMYK</Title>
-      <div class={`background ${styles.background}`}>
-        <div class={styles.yellow}>{createElements(true)}</div>
-        <div class={styles.magenta}>{createElements()}</div>
-        <div class={styles.cyan}>{createElements()}</div>
-      </div>
-      <main>
-        <h1>CMYK</h1>
+export default () => (
+  <>
+    <Title>CMYK</Title>
+    <Canvas class={styles.background} render={render} />
+    <main>
+      <h1>CMYK</h1>
 
-        <SourceButton href='/blob/master/src/pages/cmyk.module.scss' />
-      </main>
-    </>
-  );
-};
+      <SourceButton href='/blob/master/src/pages/cmyk.jsx' />
+    </main>
+  </>
+);

@@ -1,5 +1,9 @@
-import GitHubSVG from '../../node_modules/@brybrant/svg-icons/GitHub.svg';
+import GitHubSVG from '@brybrant/svg-icons/GitHub.svg';
 
+/**
+ * @param {Object} props
+ * @param {string} props.href
+ */
 export default function SourceButton(props) {
   return (
     <a
