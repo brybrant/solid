@@ -1,28 +1,13 @@
-import { onCleanup, onMount, createSignal } from 'solid-js';
+import { onCleanup, onMount } from 'solid-js';
 
-let mouseOver = false;
-
-export const mouseenter = () => (mouseOver = true);
-
-export const mouseleave = () => (mouseOver = false);
-
-let mouseX = 0.5;
-let mouseY = 1;
-
-/** @param {MouseEvent} event */
-export function mousemove(event) {
-  mouseX = event.clientX / window.innerWidth;
-  mouseY = event.clientY / window.innerHeight;
-}
-
-const [coordinates, setCoordinates] = createSignal({ mouseX, mouseY });
+import { useOptions } from '../context';
 
 export const rad360 = Math.PI * 2;
 
 /**
- * @typedef {Object} Coordinates
- * @prop {Number} mouseX
- * @prop {Number} mouseY
+ * @typedef {object} Viewbox
+ * @prop {number} marginX
+ * @prop {number} marginY
  */
 
 /**
@@ -30,45 +15,51 @@ export const rad360 = Math.PI * 2;
  *
  * Returns value between `0` and `1`.
  * @callback DistanceFunction
- * @param {Number} column
- * @param {Number} row
- * @param {Coordinates} coords
- * @returns {Number}
+ * @param {number} column
+ * @param {number} row
+ * @returns {number}
  */
 
 /**
  * @callback RenderCallback
  * @param {CanvasRenderingContext2D} context
- * @param {Coordinates} coords
- * @param {Path2D} canvasPath
  */
 
 /**
- * @param {Object} props
- * @param {String} props.class
- * @param {Function} [props.resize]
+ * @callback ResizeCallback
+ * @param {Viewbox} viewbox
+ */
+
+/**
+ * @param {object} props
+ * @param {number} props.blur
+ * @param {ResizeCallback} [props.resize]
  * @param {RenderCallback} props.render
  */
 export function Canvas(props) {
+  const [options, setOptions] = useOptions();
+
   /** @type {HTMLCanvasElement} */
   let canvas;
 
   /** @type {CanvasRenderingContext2D} */
   let context;
 
-  /** @type {Number} */
+  /** @type {number} */
   let aspect;
 
+  /** @type {Viewbox} */
   const viewbox = {
     marginX: 0,
     marginY: 0,
   };
 
+  /** Callback for `resize` window event */
   function resize() {
-    canvas.width = window.innerWidth; // * window.devicePixelRatio;
-    canvas.height = window.innerHeight; // * window.devicePixelRatio;
+    canvas.width = window.innerWidth / 2;
+    canvas.height = window.innerHeight / 2;
 
-    /** @type {Number} */
+    /** @type {number} */
     let canvasScale;
 
     if (window.innerWidth > window.innerHeight) {
@@ -97,19 +88,19 @@ export function Canvas(props) {
     if (props.resize) props.resize(viewbox);
   }
 
-  /** @type {Number} */
+  /** @type {number} */
   let frame;
 
-  /** @type {Number} */
+  /** @type {number} */
   let lastTimestamp;
 
-  /** @type {Number} */
+  /** @type {number} */
   let deltaTime;
 
   /**
    * Exponential interpolation
-   * @param {Number} previous - Previous value
-   * @param {Number} next - Next value
+   * @param {number} previous - Previous value
+   * @param {number} next - Next value
    */
   function lerp(previous, next) {
     // https://www.gamedeveloper.com/programming/improved-lerp-smoothing-
@@ -120,38 +111,36 @@ export function Canvas(props) {
 
   let angle = 0;
 
-  /** @param {Number} timestamp */
+  /** @param {number} timestamp */
   function animate(timestamp) {
     context.clearRect(-1, -1, 3, 3);
 
     deltaTime = timestamp - lastTimestamp;
     lastTimestamp = timestamp;
 
-    const coords = coordinates();
-
     try {
-      if (mouseOver) {
+      if (options.mouseOver) {
         if (window.innerWidth > window.innerHeight) {
-          setCoordinates({
-            mouseX: lerp(coords.mouseX, mouseX),
-            mouseY: lerp(coords.mouseY, (mouseY - 0.5) * aspect + 0.5),
-          });
+          setOptions((opts) => ({
+            canvasX: lerp(opts.canvasX, opts.mouseX),
+            canvasY: lerp(opts.canvasY, (opts.mouseY - 0.5) * aspect + 0.5),
+          }));
         } else {
-          setCoordinates({
-            mouseX: lerp(coords.mouseX, (mouseX - 0.5) * aspect + 0.5),
-            mouseY: lerp(coords.mouseY, mouseY),
-          });
+          setOptions((opts) => ({
+            canvasX: lerp(opts.canvasX, (opts.mouseX - 0.5) * aspect + 0.5),
+            canvasY: lerp(opts.canvasY, opts.mouseY),
+          }));
         }
       } else {
-        setCoordinates({
-          mouseX: lerp(coords.mouseX, (1 + Math.sin(angle)) * 0.5),
-          mouseY: lerp(coords.mouseY, (1 + Math.cos(angle)) * 0.5),
-        });
+        setOptions((opts) => ({
+          canvasX: lerp(opts.canvasX, (1 + Math.sin(angle)) * 0.5),
+          canvasY: lerp(opts.canvasY, (1 + Math.cos(angle)) * 0.5),
+        }));
 
         angle = (angle + 1e-3 * deltaTime) % rad360;
       }
 
-      props.render(context, coordinates(), viewbox);
+      props.render(context);
 
       frame = requestAnimationFrame(animate);
     } catch (error) {
@@ -181,5 +170,5 @@ export function Canvas(props) {
     window.removeEventListener('resize', resize);
   });
 
-  return <canvas class={props.class} ref={canvas} />;
+  return <canvas style={{ filter: `blur(${props.blur}px)` }} ref={canvas} />;
 }

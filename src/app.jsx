@@ -1,17 +1,48 @@
-import { onCleanup, onMount } from 'solid-js';
+import { batch, onCleanup, onMount } from 'solid-js';
+import { createStore } from 'solid-js/store';
 import { render } from 'solid-js/web';
 import { A, HashRouter, Navigate, Route } from '@solidjs/router';
 import { MetaProvider } from '@solidjs/meta';
 
 import './app.scss';
 
-import { mouseenter, mouseleave, mousemove } from './components/canvas';
+import { OptionsContext } from './context';
 
 import CMYK from './pages/cmyk';
 import RGB from './pages/rgb';
 import XYZ from './pages/xyz';
 
+/**
+ * @typedef {import('./context').Options} Options
+ */
+
 const Wrapper = (props) => {
+  /** @type {[Options, import('solid-js/store').SetStoreFunction<Options>]} */
+  const [options, setOptions] = createStore({
+    mouseOver: false,
+    mouseX: 0.5,
+    mouseY: 1,
+    canvasX: 0.5,
+    canvasY: 1,
+  });
+
+  /**
+   * Callback for `mousemove` document event
+   * @param {MouseEvent} event
+   */
+  function mousemove(event) {
+    return batch(() => {
+      setOptions('mouseX', event.clientX / window.innerWidth);
+      setOptions('mouseY', event.clientY / window.innerHeight);
+    });
+  }
+
+  /** Callback for `mouseenter` document event */
+  const mouseenter = () => setOptions('mouseOver', true);
+
+  /** Callback for `mouseleave` document event */
+  const mouseleave = () => setOptions('mouseOver', false);
+
   onMount(() => {
     document.body.addEventListener('mouseenter', mouseenter);
     document.body.addEventListener('mouseleave', mouseleave);
@@ -25,7 +56,7 @@ const Wrapper = (props) => {
   });
 
   return (
-    <>
+    <OptionsContext.Provider value={[options, setOptions]}>
       <div class='nav__blur' />
       <nav>
         <A href='/cmyk'>
@@ -42,7 +73,7 @@ const Wrapper = (props) => {
         </A>
       </nav>
       {props.children}
-    </>
+    </OptionsContext.Provider>
   );
 };
 

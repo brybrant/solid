@@ -1,6 +1,6 @@
 # Solid
 
-Some CSS experiments made with [Solid](https://solidjs.com) and [Vite](https://vitejs.dev) by Matt Bryant:
+Some Canvas experiments made with [Solid](https://solidjs.com) and [Vite](https://vitejs.dev) by Matt Bryant:
 
 - [CMYK](https://brybrant.github.io/solid/#/cmyk)
 - [RGB](https://brybrant.github.io/solid/#/rgb)

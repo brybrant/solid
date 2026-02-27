@@ -1,7 +1,7 @@
 import GitHubSVG from '@brybrant/svg-icons/GitHub.svg';
 
 /**
- * @param {Object} props
+ * @param {object} props
  * @param {string} props.href
  */
 export default function SourceButton(props) {

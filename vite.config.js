@@ -18,9 +18,6 @@ export default defineConfig(({ mode }) => {
       }),
     },
     css: {
-      modules: {
-        getJSON: configs.cssModulesExportJSON,
-      },
       postcss: configs.postCSSConfig,
     },
     plugins: [
