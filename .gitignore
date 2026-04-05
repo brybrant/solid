@@ -26,5 +26,4 @@ dist-ssr
 # Custom
 .eslintcache
 .stylelintcache
-modules
 src/colors.js
