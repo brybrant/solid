@@ -3,7 +3,7 @@
   "author": "brybrant",
   "license": "GPL-3.0-only",
   "private": true,
-  "version": "0.3.0",
+  "version": "0.4.0",
   "type": "module",
   "scripts": {
     "predev": "node ./generate-colors.js",
@@ -17,26 +17,19 @@
     "url": "git+https://github.com/brybrant/solid.git"
   },
   "homepage": "https://brybrant.github.io/solid/",
-  "engines": {
-    "node": "^20.19.0 || >=22.13.0"
-  },
   "dependencies": {
-    "@solidjs/router": "^0.15.4",
+    "@solidjs/router": "^0.16.1",
     "@solidjs/meta": "^0.29.4",
-    "solid-js": "^1.9.11"
+    "solid-js": "^1.9.12"
   },
   "devDependencies": {
-    "@brybrant/configs": "github:brybrant/configs",
     "@brybrant/svg-icons": "github:brybrant/svg-icons",
+    "@brybrant/vite-config": "^0.0.7",
     "culori": "^4.0.2",
+    "eslint": "^9.39.4",
     "eslint-plugin-solid": "^0.14.5",
-    "globals": "^17.3.0",
-    "sass-embedded": "^1.97.3",
     "vite": "^7.3.1",
-    "vite-plugin-eslint2": "^5.0.5",
-    "vite-plugin-solid": "^2.11.10",
-    "vite-plugin-solid-svg": "^0.8.1",
-    "vite-plugin-stylelint": "^6.0.4"
+    "vite-plugin-solid": "^2.11.11"
   },
   "browserslist": [
     "> 1%, not dead, not ie 11, not op_mini all"

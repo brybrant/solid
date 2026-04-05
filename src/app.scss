@@ -75,8 +75,8 @@ nav {
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
-  transform: translateX(-50%);
   mix-blend-mode: exclusion;
+  transform: translateX(-50%);
 
   a {
     position: relative;
@@ -97,9 +97,9 @@ nav {
       left: 0;
       height: $nav-height * 2;
       background: #fff;
+      mix-blend-mode: exclusion;
       transition: transform 166ms ease-in;
       transform: scaleY(0);
-      mix-blend-mode: exclusion;
     }
 
     &:hover div {
@@ -140,10 +140,10 @@ nav {
       height: 0;
       background: #000;
       color: #fff;
+      mix-blend-mode: normal;
       /* stylelint-disable-next-line */
       transition-property: height;
       transform: none !important;
-      mix-blend-mode: normal;
 
       &:after {
         position: absolute;
