@@ -1,10 +1,6 @@
 import GitHubSVG from '@brybrant/svg-icons/GitHub.svg';
 
-/**
- * @param {object} props
- * @param {string} props.href
- */
-export default function SourceButton(props) {
+export default (props: { href: string }) => {
   return (
     <a
       class='button'
@@ -13,4 +9,4 @@ export default function SourceButton(props) {
       innerHTML={GitHubSVG} // eslint-disable-line solid/no-innerhtml
     />
   );
-}
+};

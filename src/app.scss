@@ -25,7 +25,7 @@
 }
 
 html {
-  overflow-x: hidden;
+  overflow: hidden;
   background: #000;
   font-size: 200%;
   font-size: clamp(100%, 4.5vmin, 200%);
@@ -43,12 +43,7 @@ body {
   min-height: 100dvh;
   margin: 0;
   font-weight: 700;
-  font-family:
-    Gabarito,
-    Arial,
-    Helvetica,
-    Roboto,
-    sans-serif;
+  font-family: Gabarito, Arial, Helvetica, Roboto, sans-serif;
   text-align: center;
   text-transform: uppercase;
 }
@@ -90,6 +85,13 @@ nav {
     line-height: $nav-line-height;
     text-decoration: none;
 
+    @media (hover: hover) {
+      &:hover div {
+        transition-timing-function: ease-out;
+        transform: scaleY(0.1);
+      }
+    }
+
     div {
       position: absolute;
       top: 0;
@@ -98,13 +100,11 @@ nav {
       height: $nav-height * 2;
       background: #fff;
       mix-blend-mode: exclusion;
-      transition: transform 166ms ease-in;
       transform: scaleY(0);
-    }
 
-    &:hover div {
-      transition-timing-function: ease-out;
-      transform: scaleY(0.1);
+      @media not (prefers-reduced-motion: reduce) {
+        transition: transform 166ms ease-in;
+      }
     }
 
     &.active div {
@@ -133,6 +133,12 @@ nav {
 
 @supports not (mix-blend-mode: exclusion) {
   nav a {
+    @media (hover: hover) {
+      &:hover div {
+        height: 0.25rem;
+      }
+    }
+
     div {
       top: auto;
       bottom: 0;
@@ -153,10 +159,6 @@ nav {
         height: $nav-height;
         padding: $nav-vertical-padding 0;
       }
-    }
-
-    &:hover div {
-      height: 0.25rem;
     }
 
     &.active div {
@@ -185,7 +187,7 @@ main {
   align-items: center;
   min-height: 100vh;
   min-height: 100dvh;
-  padding: ($nav-height + 2rem) 0;
+  padding: 3rem 0;
   color: #fff;
   mix-blend-mode: exclusion;
 }
@@ -201,10 +203,8 @@ main {
 
 canvas {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+
+  // Size is set in JSX (inline style attribute) - see `canvas.tsx`
 }
 
 h1 {
@@ -228,7 +228,14 @@ h1 {
   color: #000;
   cursor: pointer;
 
-  &:hover, &:active {
+  @media (hover: hover) {
+    &:hover {
+      background: none;
+      color: #fff;
+    }
+  }
+
+  &:active {
     background: none;
     color: #fff;
   }
